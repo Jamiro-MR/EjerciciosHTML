@@ -1,0 +1,60 @@
+html, body{
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	width: 100%;
+	min-height: 100%;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+	line-height: 1.2em;
+}
+
+.header{
+	position: relative;
+	top: 0;
+	width: 100%;
+	min-height: 75px;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #E4007C;
+}
+
+.header .titulo{
+	display: inline-block;
+	padding: 0;
+
+}
+
+.header .titulo > h1 {
+	margin: 15px 0 0;
+}
+
+.header > nav {
+	margin: 15px;
+}
+
+.header > nav ul li {
+	display: inline;
+	list-style-type: none;
+}
+
+.menu ul li a{
+	text-decoration: none;
+	color: #333;
+}
+
+.logo {
+	display: block;
+	float: right;
+	margin-right: 50px;
+}
+
+.logo > img {
+	max-width: 75px;
+	min-width: 75px;
+	max-height: 50px;
+	min-height: 50px;
+}
+
+.header
