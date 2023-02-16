@@ -1,0 +1,15 @@
+[
+	{
+		"id" : 1,
+		"tipo" : "auto",
+		"foto" : "",
+		"marca" : "Ford",
+		"modelo" : "Figo",
+		"año" : "2016", 
+		"motor" : {
+			"potencia" : "100 HP",
+			"desplazamiento" : "1.4 l",
+			"kilometraje" : "100 mil"
+		}
+	},
+]
