@@ -2,7 +2,7 @@
 	{
 		"id" : 1,
 		"tipo" : "auto",
-		"foto" : "",
+		"foto" : "tsuruTun.jpg",
 		"marca" : "Ford",
 		"modelo" : "Figo",
 		"año" : "2016", 
@@ -12,4 +12,32 @@
 			"kilometraje" : "100 mil"
 		}
 	},
+
+	{
+		"id" : 2,
+		"tipo" : "auto",
+		"foto" : "tsuruTun.jpg",
+		"marca" : "Ford",
+		"modelo" : "Figo",
+		"año" : "2016", 
+		"motor" : {
+			"potencia" : "100 HP",
+			"desplazamiento" : "1.4 l",
+			"kilometraje" : "100 mil"
+		}
+	},
+
+	{
+		"id" : 3,
+		"tipo" : "auto",
+		"foto" : "tsuruTun.jpg",
+		"marca" : "Ford",
+		"modelo" : "Figo",
+		"año" : "2016", 
+		"motor" : {
+			"potencia" : "100 HP",
+			"desplazamiento" : "1.4 l",
+			"kilometraje" : "100 mil"
+		}
+	}
 ]
