@@ -68,7 +68,7 @@
 
 <script src="/resources/js/jquery-3.6.3.js"></script>
 <script src="/resources/js/bootstrap.js"></script>
-
+<script src="/resources/js/app.js"></script>
 </body>
 </html>
 <?php }
