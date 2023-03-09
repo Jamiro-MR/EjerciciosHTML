@@ -2,22 +2,32 @@ const app = {
 	urlPosts : "https://jsonplaceholder.typicode.com/posts",
 	urlComments: "https://jsonplaceholder.typicode.com/comments",
 	urlUsers : "https://jsonplaceholder.typicode.com/users",
+	userId : "",
 
-	loadPosts : function() {
+	loadPosts : async function() {
 		// const cont = document.querySelector("#content");
 		const cont = $("#content");
 		cont.css("width", "100%");
 		cont.addClass("mx-auto mt-5");
 		let html = "";
-		fetch(this.urlPosts)
+		let urlaux = "";
+		if( this.userId !== ""){
+			urlaux = "?userId=" + this.userId;
+		}
+		let r = await fetch(this.urlUsers + "/" + this.userId)
+					.then( resp => resp.json() )
+					.catch(err => console.error( err ));
+
+		fetch(this.urlPosts + urlaux)
 			.then( resp => resp.json())
 			.then( posts => {
 				for ( let post of posts ){
-					//let autor
+					let autor = typeof r == "array"? r.filter(a => a.id == post.userId)[0] : r.name;
 					html+=`			
 					<div class="card text mb-3">
 						<div class="card-header">
-							${ post.title }
+							<h5 class="card-title">${ post.title }</h5>
+							<h6 class="card-subtitle mb-2">${ autor } | fecha</h6>
 						</div>
 						<div class="card-body">
 							<p class="card-text"> ${ post.body }</p>
@@ -79,13 +89,19 @@ const app = {
 				for( let u of usuarios ){
 					html += `
 						<button type="button" class="list-group-item list-group-item-action" aria-current="true"
-							id="usp${u.id}"
+							id="up${u.id}"
 							onclick="app.userPosts( ${ u.id } )">
 						    ${ u.name } <br><small>${ u.email }</small>
 						</button>`;
 				}
 				users.html(html);
 			} ).catch( err => console.error( err ) );
+	},
+	userPosts : function( userId ){
+		$("#up" + this.userId).removeClass("active");
+		this.userId = userId;
+		$("#up" + userId).addClass("active");
+		this.loadPosts();
 	}
 }
 window.onload = function(){
