@@ -3,6 +3,7 @@ const app = {
 	urlComments: "https://jsonplaceholder.typicode.com/comments",
 	urlUsers : "https://jsonplaceholder.typicode.com/users",
 	userId : "",
+	keyWord : "",
 
 	loadPosts : async function() {
 		// const cont = document.querySelector("#content");
@@ -23,11 +24,12 @@ const app = {
 			.then( posts => {
 				for ( let post of posts ){
 					let autor = typeof r == "array"? r.filter(a => a.id == post.userId)[0] : r.name;
+					if(post.body.indexOf(this.keyWord) !== -1){
 					html+=`			
 					<div class="card text mb-3">
 						<div class="card-header">
 							<h5 class="card-title">${ post.title }</h5>
-							<h6 class="card-subtitle mb-2">${ autor } | fecha</h6>
+							<h6 class="card-subtitle mb-2"><b class="bi bi-person-circle">	${ autor }</b> | <b class="bi bi-calendar-week"> DD|MM|AAAA</b></h6>
 						</div>
 						<div class="card-body">
 							<p class="card-text"> ${ post.body }</p>
@@ -50,6 +52,7 @@ const app = {
 						</div>
 					</div>
 					`;
+				}
 					cont.html(html);
 				}
 			} ).catch( err => console.error(err) )
@@ -98,10 +101,23 @@ const app = {
 			} ).catch( err => console.error( err ) );
 	},
 	userPosts : function( userId ){
+		if(userId == this.userId){
+			$("#up" + this.userId).removeClass("active");
+			this.userId = "";
+			this.loadPosts();
+		}else{
+			$("#up" + this.userId).removeClass("active");
+			this.userId = userId;
+			$("#up" + userId).addClass("active");
+			this.loadPosts();
+		}
+	},
+	searchWord : function(){
 		$("#up" + this.userId).removeClass("active");
-		this.userId = userId;
-		$("#up" + userId).addClass("active");
+		this.userId = "";
+		this.keyWord = $("#searchWord").val();
 		this.loadPosts();
+
 	}
 }
 window.onload = function(){
