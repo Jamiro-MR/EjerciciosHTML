@@ -61,15 +61,18 @@
 		    </div>
 		  </div>
 		</nav>
-<?php
-	}
-	function foot(){
-?>
+	<?php
+}
+function scripts(){
+	?>
 	</div>
-
 <script src="/resources/js/jquery-3.6.3.js"></script>
 <script src="/resources/js/bootstrap.js"></script>
 <script src="/resources/js/app.js"></script>
+<?php
+}
+	function foot(){
+?>
 </body>
 </html>
 <?php }
