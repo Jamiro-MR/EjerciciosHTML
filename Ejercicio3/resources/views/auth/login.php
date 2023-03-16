@@ -31,6 +31,9 @@
 				<small class="form-text text-danger d-none mb-2">
 					Los datos ingresados en el inicio de sesión son incorrectos.
 				</small>
+				<button class="btn btn-primary" type="submit">
+					Iniciar Sesion
+				</button>
 			</form>
 		</div>
 	</div>
