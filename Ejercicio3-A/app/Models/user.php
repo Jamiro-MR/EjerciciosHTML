@@ -2,7 +2,7 @@
 
 namespace Models;
 class user extends DB {
-	public $table
+	public $table;
 	function __construct(){
 		parent::__construct();
 		$this->table = $this->db_connect();

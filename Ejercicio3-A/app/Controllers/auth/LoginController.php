@@ -1,7 +1,6 @@
 <?php
 
-	namespace app;
-	require_once Controllers\auth\;
+	namespace Controllers\auth;
 
 	use Models\user;
 
@@ -12,7 +11,7 @@
 		public function __construct(){
 			$this -> sv = false;
 		}
-		public function UserAuth($datos){
+		public function userAuth($datos){
 			$user = new user();
 
 			$result = $user->where([
@@ -24,6 +23,7 @@
 				return $this->sessionRegister($datos);
 			}else{
 				//Destruir todo alv
+				$this->sessionDestroy();
 				echo json_decode(["r" => false]);
 			}
 		}
@@ -37,7 +37,29 @@
 			return json_encode(["r" => true]);
 		}
 
-		private function session_destroy(){
+		public function sessionValidate(){
+			$user = new user();
+			session_start();
+			if(session_status() == PHP_SESSION_ACTIVE && count($_SESSION) > 0){
+				$datos = $_SESSION;
+				$result = $user->where([["username", $datos["username"]], 
+										["passwd", $datos["passwd"]],
+										])->get();
+				if(count(json_decode($result)) > 0 && $datos['IP'] == $_SERVER['REMOTE_ADDR']){
+					session_write_close();
+					$this->sv = true;
+					$this->name = json_decode($result)[0]->name;
+					$this->id = json_decode($result)[0]->id;
+					return $result;
+				}else{
+					session_write_close();
+					$this->sessionDestroy();
+					return null;
+				}
+			}
+		}
+
+		private function sessionDestroy(){
 			session_start();
 			$_SESSION = [];
 			session_destroy();
@@ -46,5 +68,10 @@
 			$this->name = "";
 			$this->id = "";
 			return;	
+		}
+
+		public function logout(){
+			$this->sessionDestroy();
+			return;
 		}
 	}

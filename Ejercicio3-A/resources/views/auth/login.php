@@ -1,6 +1,6 @@
 <?php
 	namespace views;
-	require "/app/autoloader.php";
+	require_once "../../../app/autoloader.php";
 	include "../layouts/main.php";
 	use Controllers\auth\LoginController as LoginController;
 
