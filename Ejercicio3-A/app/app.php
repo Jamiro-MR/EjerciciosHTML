@@ -15,6 +15,15 @@ if(!empty($_POST)){
 		$userLogin = new LoginController();
 		print_r($userLogin->userAuth($datos));
 	}
+
+	//*******************Nuevo post */
+	$gp = in_array('_gp', array_keys(filter_input_array(INPUT_POST)));
+	if($gp){
+		$datos = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+		$post = new PostController();
+		$post->newPost($datos);
+		header('Location: /resources/views/autores/newpost.php');
+	}
 }
 
 if(!empty($_GET)){
@@ -25,16 +34,25 @@ if(!empty($_GET)){
 		$userLogout->logout();
 		header('Location: /resources/views/home.php');
 	}
+
 	//*******************Cargar publicaciones previas */
 	$pp = in_array('_pp', array_keys(filter_input_array(INPUT_GET)));
 	if($pp){
 		$post = new PostController();
-		print_r($post->getPosts());
+		print_r($post->getPost());
 	}
+
 	$lp = in_array('_lp', array_keys(filter_input_array(INPUT_GET)));
 	if($lp){
 		$l = filter_input_array(INPUT_GET)["limit"];
 		$lastpost = new PostController();
-		print_r($lastpost->getPosts($l));
+		print_r($lastpost->getPost($l));
+	}
+
+	$op = in_array('_op', array_keys(filter_input_array(INPUT_GET)));
+	if($op){
+		$o = filter_input_array(INPUT_GET)["pid"];
+		$openpost = new PostController();
+		print_r($openpost->getPost(1, $o));
 	}
 }

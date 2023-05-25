@@ -16,12 +16,13 @@
 	</div>
 	<div class="col-6">
 		<div id="content" class="content">
-			<!--publicaciones recientes-->
+			<!--Ultima publicacion/publicaicion seleccionada -->
 		</div>
 	</div>
 	<div class="col">
 		<div id="dates" class="list-group">
 			<!-- Fechas de publicaciones -->
+
 		</div>
 	</div>
 </div>
@@ -30,10 +31,9 @@
 
 <script type="text/javascript">
 	$(function(){
-		app.previousPosts();
-		app.lastPost(1);
+		app.previousPost();
+		app.lastPost(1);	
 	});
 </script>
-
-<?php
+<?php 
 	foot();

@@ -15,6 +15,7 @@
 		public $j = "";
 		public $w = " 1 ";
 		public $o = "";
+		public $l = "";
 
 		public $r; //resultado de la consulta
 
@@ -65,36 +66,49 @@
 			return $this;
 		}
 
-		public function orderBy($ob = [] ){
+		public function orderBy($ob = []){
 			$this->o = "";
-			if(count ($ob) > 0){
-				foreach ($ob as $orderBy){
-					$this->o .= $orderBy[0] . '  ' . $orderBy[1] . ',';
+			if(count($ob) > 0){
+				foreach($ob as $orderBy){
+					$this->o .= $orderBy[0] . ' ' . $orderBy[1] . ',';
 				}
-				$this->o = ' order by ' . trim($this->o,',');
+				$this->o = ' order by ' . trim($this->o, ',');
 			}
 			return $this;
 		}
 
 		public function limit($l = ""){
-			$this->l = ""
+			$this->l = "";
 			if($l != ""){
-				$this->l= ' limit ' . $l
+				$this->l = ' limit ' . $l;
 			}
 			return $this;
+
 		}
 
 		public function get(){
 			$sql = "select " . $this->s .
 				   " from " . str_replace("Models\\", "", get_class($this)) .
-				   ($this->j != "" ? " a " . $this->j : "" ) .
+				   ($this->j != "" ? " a" . $this->j : "") .
 				   " where " . $this->w .
-				   $this->o;
+				   $this->o . 
+				   $this->l;
+
 			$this->r = $this->table->query($sql);
 			$result = [];
 			while($f = $this->r->fetch_assoc()){
 				$result[] = $f;
 			}
 			return json_encode($result);
+		}
+
+		public function create(){
+			$sql = "insert into " . str_replace("Models\\", "", get_class($this)) .
+					' (' . implode(",", $this->campos) . ') values (' . 
+					trim(str_replace("&", "?,", str_pad("", count($this->campos), "&")),",") . ');';
+
+			$stmt = $this->table->prepare($sql);
+			$stmt->bind_param(str_pad("", count($this->campos), "s"),...$this->valores);
+			return $stmt->execute();
 		}
 	}
